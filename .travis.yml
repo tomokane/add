@@ -1,0 +1,17 @@
+language: go
+go_import_path: github.com/tomokane/add
+
+go:
+  - 1.9
+
+install:
+  - curl -LO https://s3.amazonaws.com/reconfigure.io/reco/releases/reco-v0.2.0-x86_64-linux.zip
+  - unzip reco-v0.2.0-x86_64-linux.zip
+  - sudo mv reco /usr/local/bin
+
+script:
+  - go test github.com/tomokane/add
+  - mkdir -p kernels/add/vendor/github.com/tomokane/add
+  - cp add.go kernels/add/vendor/github.com/tomokane/add/add.go
+  - cd kernels/add && reco check
+
